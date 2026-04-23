@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lumina | Boutique Dentistry — Your Smile, Reimagined</title>
-  <meta name="description" content="Experience serene, boutique dental care at Lumina. Book your appointment today.">
+  <title>Lumina | Boutique Dentistry — Pain-Free. Precision-Driven. Beautiful.</title>
+  <meta name="description" content="Lumina Boutique Dentistry offers advanced laser treatments, same-day digital smile design, and a spa-like clinical experience. Book your pain-free consultation today.">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -15,39 +15,115 @@
   <div class="bg-shape shape-2"></div>
   <div class="bg-shape shape-3"></div>
 
-  <!-- Navbar -->
+  <!-- ========== NAVBAR — Admin link removed ========== -->
   <nav class="navbar" id="navbar">
     <a href="#" class="nav-logo">Lumina<span>.</span></a>
     <ul class="nav-links">
-      <li><a href="#facilities">Facilities</a></li>
+      <li><a href="#services">Treatments</a></li>
+      <li><a href="#facilities">Our Clinic</a></li>
+      <li><a href="#gallery">Results</a></li>
       <li><a href="#reviews">Reviews</a></li>
-      <li><a href="#appointments">Book</a></li>
-      <li><a href="login.html">Admin</a></li>
     </ul>
-    <a href="#appointments" class="nav-cta">Book Now</a>
+    <a href="#book" class="nav-cta">Book Free Consult</a>
     <button class="nav-hamburger" aria-label="Menu"><i class="fa-solid fa-bars"></i></button>
   </nav>
 
   <main>
-    <!-- ====== HERO ====== -->
+
+    <!-- ========== HERO — Benefit-driven copy ========== -->
     <section class="hero" id="hero">
       <div class="hero-content">
-        <div class="hero-badge reveal"><span class="dot"></span> Now Accepting New Patients</div>
-        <h1 class="reveal stagger-1">Your Smile Is Our Greatest Achievement</h1>
-        <p class="quote reveal stagger-2">"A beautiful smile is a powerful thing — it gives you confidence, changes your look, and makes the world smile back."</p>
-        <div class="hero-buttons reveal stagger-3">
-          <a href="#appointments" class="btn-primary">Book Appointment</a>
-          <a href="#facilities" class="btn-outline">Explore Clinic</a>
+        <div class="hero-badge reveal">
+          <span class="dot"></span> Now Accepting New Patients
+        </div>
+        <h1 class="reveal stagger-1">
+          Pain-Free Dentistry.<br>
+          <span class="hero-accent">Flawless Results.</span>
+        </h1>
+        <p class="hero-sub reveal stagger-2">
+          Advanced laser technology. Same-day digital smile design.
+          Walk out with the smile you've always wanted — without the anxiety.
+        </p>
+        <div class="hero-stats reveal stagger-3">
+          <div class="stat">
+            <span class="stat-number">5,000+</span>
+            <span class="stat-label">Happy Smiles</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat">
+            <span class="stat-number">15+</span>
+            <span class="stat-label">Years Experience</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat">
+            <span class="stat-number">4.9<i class="fa-solid fa-star"></i></span>
+            <span class="stat-label">Patient Rating</span>
+          </div>
+        </div>
+        <div class="hero-buttons reveal stagger-4">
+          <a href="#book" class="btn-primary">Book Free Consultation</a>
+          <a href="#services" class="btn-ghost">View Treatments <i class="fa-solid fa-arrow-right"></i></a>
         </div>
       </div>
     </section>
 
-    <!-- ====== FACILITIES ====== -->
+    <!-- ========== SERVICES — Actual treatments ========== -->
+    <section class="section" id="services">
+      <div class="section-header">
+        <span class="section-label reveal">What We Treat</span>
+        <h2 class="section-title reveal stagger-1">Treatments &amp; Solutions</h2>
+        <p class="section-subtitle reveal stagger-2">
+          From preventive care to full-mouth rehabilitation — every treatment is tailored to your unique needs.
+        </p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card reveal stagger-1">
+          <div class="service-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+          <h3>Porcelain Veneers</h3>
+          <p>Ultra-thin, handcrafted ceramic shells that transform shape, shade, and symmetry in just two visits.</p>
+          <a href="#book" class="service-link">Book Consultation <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+        <div class="service-card reveal stagger-2">
+          <div class="service-icon"><i class="fa-solid fa-teeth"></i></div>
+          <h3>Invisalign &amp; Aligners</h3>
+          <p>Straighten your teeth invisibly with custom-mapped clear trays — no metal brackets required.</p>
+          <a href="#book" class="service-link">Book Consultation <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+        <div class="service-card reveal stagger-3">
+          <div class="service-icon"><i class="fa-solid fa-gem"></i></div>
+          <h3>Dental Implants</h3>
+          <p>Permanent, biocompatible titanium roots topped with custom ceramic crowns. A lifetime solution.</p>
+          <a href="#book" class="service-link">Book Consultation <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+        <div class="service-card reveal stagger-4">
+          <div class="service-icon"><i class="fa-solid fa-sun"></i></div>
+          <h3>Teeth Whitening</h3>
+          <p>Professional-grade whitening that lifts up to 8 shades in a single session — safely and comfortably.</p>
+          <a href="#book" class="service-link">Book Consultation <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+        <div class="service-card reveal stagger-5">
+          <div class="service-icon"><i class="fa-solid fa-shield-halved"></i></div>
+          <h3>Root Canal Therapy</h3>
+          <p>Pain-free endodontic treatment with rotary instruments and apex locators — save your natural tooth.</p>
+          <a href="#book" class="service-link">Book Consultation <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+        <div class="service-card reveal stagger-6">
+          <div class="service-icon"><i class="fa-solid fa-children"></i></div>
+          <h3>Kids Dentistry</h3>
+          <p>Gentle, playful care tailored for little ones. Sealants, fluoride, and cavity-free checkups they enjoy.</p>
+          <a href="#book" class="service-link">Book Consultation <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== FACILITIES — Clinic amenities ========== -->
     <section class="section section-alt" id="facilities">
       <div class="section-header">
-        <span class="section-label reveal">Our Facilities</span>
-        <h2 class="section-title reveal stagger-1">World-Class Dental Care</h2>
-        <p class="section-subtitle reveal stagger-2">Step into a space designed for your comfort, equipped with the latest in dental technology.</p>
+        <span class="section-label reveal">Our Clinic</span>
+        <h2 class="section-title reveal stagger-1">A Space Designed for Comfort</h2>
+        <p class="section-subtitle reveal stagger-2">
+          Step into an environment engineered to eliminate dental anxiety — equipped with the latest technology.
+        </p>
       </div>
       <div class="facilities-grid">
         <div class="facility-card reveal stagger-1">
@@ -56,9 +132,9 @@
           <p>State-of-the-art iTero scanners for precision diagnostics and treatment planning.</p>
         </div>
         <div class="facility-card reveal stagger-2">
-          <div class="facility-icon"><i class="fa-solid fa-tooth"></i></div>
-          <h3>Painless Procedures</h3>
-          <p>Laser-assisted treatments and gentle sedation options for anxiety-free visits.</p>
+          <div class="facility-icon"><i class="fa-solid fa-bolt"></i></div>
+          <h3>Laser-Assisted Care</h3>
+          <p>Diode and Er:YAG lasers for painless gum contouring, cavity removal, and tissue repair.</p>
         </div>
         <div class="facility-card reveal stagger-3">
           <div class="facility-icon"><i class="fa-solid fa-spa"></i></div>
@@ -68,22 +144,79 @@
         <div class="facility-card reveal stagger-4">
           <div class="facility-icon"><i class="fa-solid fa-shield-halved"></i></div>
           <h3>Sterilization Lab</h3>
-          <p>Hospital-grade sterilization protocols ensuring the highest safety standards.</p>
-        </div>
-        <div class="facility-card reveal stagger-5">
-          <div class="facility-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
-          <h3>Cosmetic Suite</h3>
-          <p>Dedicated aesthetic wing for veneers, whitening, and smile design consultations.</p>
-        </div>
-        <div class="facility-card reveal stagger-6">
-          <div class="facility-icon"><i class="fa-solid fa-children"></i></div>
-          <h3>Kids Corner</h3>
-          <p>A playful, colorful zone to make dental visits fun and stress-free for children.</p>
+          <p>Hospital-grade autoclave protocols ensuring the highest infection control standards.</p>
         </div>
       </div>
     </section>
 
-    <!-- ====== REVIEWS ====== -->
+    <!-- ========== SMILE GALLERY — Before & After ========== -->
+    <section class="section gallery-section" id="gallery">
+      <div class="section-header">
+        <span class="section-label reveal">Visual Proof</span>
+        <h2 class="section-title reveal stagger-1">Smile Transformations</h2>
+        <p class="section-subtitle reveal stagger-2">
+          Real results from real patients. See the difference boutique precision makes.
+        </p>
+      </div>
+      <div class="gallery-grid">
+        <!-- Case 1 -->
+        <div class="gallery-card reveal stagger-1">
+          <div class="gallery-images">
+            <div class="gallery-before">
+              <img src="https://images.unsplash.com/photo-1598256989800-fea5f95bc8e0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Before — spacing and discoloration">
+              <span class="gallery-tag tag-before">Before</span>
+            </div>
+            <div class="gallery-after">
+              <img src="https://images.unsplash.com/photo-1606265752439-1f18756aa5fc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="After — 8-unit veneer makeover">
+              <span class="gallery-tag tag-after">After</span>
+            </div>
+          </div>
+          <div class="gallery-info">
+            <span class="gallery-treatment">Porcelain Veneers</span>
+            <h4>Complete Smile Makeover</h4>
+            <p>8-unit veneer set to correct spacing, discoloration, and uneven tooth length.</p>
+          </div>
+        </div>
+        <!-- Case 2 -->
+        <div class="gallery-card reveal stagger-2">
+          <div class="gallery-images">
+            <div class="gallery-before">
+              <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Before — crowded teeth">
+              <span class="gallery-tag tag-before">Before</span>
+            </div>
+            <div class="gallery-after">
+              <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="After — aligned smile">
+              <span class="gallery-tag tag-after">After</span>
+            </div>
+          </div>
+          <div class="gallery-info">
+            <span class="gallery-treatment">Invisalign Aligners</span>
+            <h4>Invisible Realignment</h4>
+            <p>12-month clear aligner plan to correct crowding and achieve a perfectly even arch.</p>
+          </div>
+        </div>
+        <!-- Case 3 -->
+        <div class="gallery-card reveal stagger-3">
+          <div class="gallery-images">
+            <div class="gallery-before">
+              <img src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Before — stained teeth">
+              <span class="gallery-tag tag-before">Before</span>
+            </div>
+            <div class="gallery-after">
+              <img src="https://images.unsplash.com/photo-1606265752439-1f18756aa5fc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="After — whitened smile">
+              <span class="gallery-tag tag-after">After</span>
+            </div>
+          </div>
+          <div class="gallery-info">
+            <span class="gallery-treatment">Professional Whitening</span>
+            <h4>8-Shade Brightening</h4>
+            <p>Single-session Zoom whitening to remove years of coffee and tea staining.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== REVIEWS ========== -->
     <section class="section reviews-section" id="reviews">
       <div class="section-header">
         <span class="section-label reveal">Testimonials</span>
@@ -114,88 +247,82 @@
       </div>
     </section>
 
-    <!-- ====== APPOINTMENTS ====== -->
-    <section class="section appointment-section" id="appointments">
+    <!-- ========== BOOKING — Simplified lead capture ========== -->
+    <section class="section booking-section" id="book">
       <div class="section-header">
-        <span class="section-label reveal">Schedule a Visit</span>
-        <h2 class="section-title reveal stagger-1">Book Your Appointment</h2>
-        <p class="section-subtitle reveal stagger-2">Choose your service and preferred time. We'll confirm within the hour.</p>
+        <span class="section-label reveal">Get Started</span>
+        <h2 class="section-title reveal stagger-1">Book Your Free Consultation</h2>
+        <p class="section-subtitle reveal stagger-2">
+          Tell us what you need. We'll call you within 30 minutes to schedule your visit.
+        </p>
       </div>
-      <div class="appointment-container reveal-scale">
-        <form id="appointmentForm">
-          <div class="form-grid">
-            <div class="form-group">
-              <label for="apptName">Full Name</label>
-              <input type="text" id="apptName" placeholder="Your Name" required>
-            </div>
-            <div class="form-group">
-              <label for="apptEmail">Email Address</label>
-              <input type="email" id="apptEmail" placeholder="Your Email" required>
-            </div>
-            <div class="form-group">
-              <label for="apptPhone">Phone Number</label>
-              <input type="tel" id="apptPhone" placeholder="Your Phone Number" required>
-            </div>
-            <div class="form-group">
-              <label for="apptService">Service</label>
-              <select id="apptService" required>
-                <option value="" disabled selected>Select a service</option>
-                <option value="General Checkup">General Checkup</option>
-                <option value="Teeth Whitening">Teeth Whitening</option>
-                <option value="Veneers">Porcelain Veneers</option>
-                <option value="Orthodontics">Orthodontics / Aligners</option>
-                <option value="Implants">Dental Implants</option>
-                <option value="Root Canal">Root Canal Treatment</option>
-                <option value="Kids Dentistry">Kids Dentistry</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="apptDate">Preferred Date</label>
-              <input type="date" id="apptDate" required>
-            </div>
-            <div class="form-group">
-              <label for="apptTime">Preferred Time</label>
-              <select id="apptTime" required>
-                <option value="" disabled selected>Select time</option>
-                <option value="09:00">9:00 AM</option>
-                <option value="10:00">10:00 AM</option>
-                <option value="11:00">11:00 AM</option>
-                <option value="12:00">12:00 PM</option>
-                <option value="14:00">2:00 PM</option>
-                <option value="15:00">3:00 PM</option>
-                <option value="16:00">4:00 PM</option>
-                <option value="17:00">5:00 PM</option>
-              </select>
-            </div>
-            <div class="form-group full">
-              <label for="apptMessage">Additional Notes (Optional)</label>
-              <textarea id="apptMessage" placeholder="Any concerns or special requests..."></textarea>
-            </div>
-            <div class="form-group full">
-              <button type="submit" class="form-submit">Confirm Appointment</button>
-            </div>
+      <div class="booking-container reveal-scale">
+        <div class="booking-benefits">
+          <h3>Why Lumina?</h3>
+          <ul>
+            <li><i class="fa-solid fa-circle-check"></i> Free initial consultation</li>
+            <li><i class="fa-solid fa-circle-check"></i> We call you within 30 minutes</li>
+            <li><i class="fa-solid fa-circle-check"></i> Flexible scheduling, including evenings</li>
+            <li><i class="fa-solid fa-circle-check"></i> All major insurance accepted</li>
+            <li><i class="fa-solid fa-circle-check"></i> 0% interest payment plans available</li>
+          </ul>
+        </div>
+        <form id="appointmentForm" class="booking-form">
+          <div class="form-group">
+            <label for="apptName">Full Name</label>
+            <input type="text" id="apptName" placeholder="e.g. Sarah Ahmed" required>
           </div>
+          <div class="form-group">
+            <label for="apptPhone">Phone Number</label>
+            <input type="tel" id="apptPhone" placeholder="e.g. 0300 1234567" required>
+          </div>
+          <div class="form-group">
+            <label for="apptService">What do you need?</label>
+            <select id="apptService" required>
+              <option value="" disabled selected>Select a treatment</option>
+              <option value="General Checkup">General Checkup</option>
+              <option value="Teeth Whitening">Teeth Whitening</option>
+              <option value="Veneers">Porcelain Veneers</option>
+              <option value="Orthodontics">Invisalign / Aligners</option>
+              <option value="Implants">Dental Implants</option>
+              <option value="Root Canal">Root Canal Treatment</option>
+              <option value="Kids Dentistry">Kids Dentistry</option>
+              <option value="Other">Other / Not Sure</option>
+            </select>
+          </div>
+          <button type="submit" class="form-submit">
+            <span class="btn-text">Request Callback</span>
+            <span class="btn-loading" style="display:none;"><i class="fa-solid fa-spinner fa-spin"></i> Sending...</span>
+          </button>
+          <p class="form-note"><i class="fa-solid fa-lock"></i> Your information is 100% private. No spam, ever.</p>
         </form>
-        <div class="form-success">
+        <div class="form-success" id="formSuccess">
           <i class="fa-solid fa-circle-check"></i>
-          <h3>Appointment Requested!</h3>
-          <p>We've received your booking. Our team will confirm within the hour via WhatsApp or email.</p>
+          <h3>Request Received!</h3>
+          <p>Our team will call you within 30 minutes to schedule your visit. Check your phone!</p>
         </div>
       </div>
     </section>
+
   </main>
 
-  <!-- Footer -->
+  <!-- ========== FOOTER — Admin link at very bottom ========== -->
   <footer class="footer">
-    <div class="footer-brand">Lumina<span>.</span></div>
-    <p class="footer-text">Boutique Dentistry — Where Science Meets Serenity</p>
-    <div class="footer-links">
-      <a href="#facilities">Facilities</a>
-      <a href="#reviews">Reviews</a>
-      <a href="#appointments">Book</a>
-      <a href="login.html">Admin Login</a>
+    <div class="footer-top">
+      <div class="footer-brand">Lumina<span>.</span></div>
+      <p class="footer-tagline">Boutique Dentistry — Where Science Meets Serenity</p>
     </div>
-    <p class="footer-copy">&copy; 2026 Lumina Dental Clinic. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="#services">Treatments</a>
+      <a href="#facilities">Our Clinic</a>
+      <a href="#gallery">Results</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#book">Book</a>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; 2026 Lumina Dental Clinic. All rights reserved.</p>
+      <a href="login.html" class="footer-admin">Staff Portal</a>
+    </div>
   </footer>
 
   <!-- WhatsApp Float -->
