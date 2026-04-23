@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lumina | Admin Login</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="bg-shape shape-1"></div>
+  <div class="bg-shape shape-2"></div>
+  <div class="bg-shape shape-3"></div>
+
+  <div class="login-page">
+    <div class="login-card reveal-scale">
+      <div class="login-header">
+        <div class="logo">Lumina<span>.</span></div>
+        <p>Admin Portal — Manage Appointments</p>
+      </div>
+
+      <form class="login-form" id="loginForm">
+        <div class="form-group register-fields" id="registerFields">
+          <label for="regName">Full Name</label>
+          <input type="text" id="regName" placeholder="Dr. Smith">
+        </div>
+        <div class="form-group">
+          <label for="loginEmail">Email Address</label>
+          <input type="email" id="loginEmail" placeholder="admin@lumina.com" required>
+        </div>
+        <div class="form-group">
+          <label for="loginPassword">Password</label>
+          <input type="password" id="loginPassword" placeholder="••••••••" required minlength="6">
+        </div>
+        <button type="submit" class="login-btn" id="loginBtn">Sign In</button>
+        
+        <div style="text-align: center; margin: 10px 0; color: var(--text-light); font-size: 0.8rem;">— OR —</div>
+        
+        <button type="button" class="btn-outline" id="quickAdminBtn" style="width: 100%; padding: 12px; font-size: 0.85rem; border-color: var(--primary);">
+          <i class="fa-solid fa-bolt" style="color: var(--gold);"></i> Quick Admin Access
+        </button>
+
+        <div class="login-error" id="loginError"></div>
+      </form>
+
+      <div class="login-footer">
+        <button class="toggle-mode" id="toggleMode">Need an account? Register</button>
+        <br><br>
+        <a href="index.html"><i class="fa-solid fa-arrow-left"></i> Back to Website</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
+  <script>
+    const sb = getSupabase();
+
+    let isRegister = false;
+    const form = document.getElementById('loginForm');
+    const btn = document.getElementById('loginBtn');
+    const errorEl = document.getElementById('loginError');
+    const toggleBtn = document.getElementById('toggleMode');
+    const regFields = document.getElementById('registerFields');
+    const quickAdminBtn = document.getElementById('quickAdminBtn');
+
+    // Default Credentials
+    const DEFAULT_ADMIN = { email: 'admin@lumina.com', password: 'LuminaAdmin2026' };
+
+    // Check if already logged in
+    sb.auth.getSession().then(({ data }) => {
+      if (data.session) window.location.href = 'admin.html';
+    });
+
+    // Quick Admin Logic
+    quickAdminBtn.addEventListener('click', async () => {
+      errorEl.classList.remove('show');
+      quickAdminBtn.disabled = true;
+      quickAdminBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Authenticating...';
+
+      try {
+        // Try sign in first
+        let { data, error } = await sb.auth.signInWithPassword(DEFAULT_ADMIN);
+        
+        // If user doesn't exist, try to sign up
+        if (error && error.message.includes('Invalid login credentials')) {
+          const signup = await sb.auth.signUp(DEFAULT_ADMIN);
+          if (signup.error) throw signup.error;
+          
+          // Re-attempt sign in after signup
+          const retry = await sb.auth.signInWithPassword(DEFAULT_ADMIN);
+          if (retry.error) throw retry.error;
+          data = retry.data;
+        } else if (error) {
+          throw error;
+        }
+
+        if (data.session) window.location.href = 'admin.html';
+      } catch (err) {
+        errorEl.textContent = 'Quick Access Error: ' + err.message;
+        errorEl.classList.add('show');
+      } finally {
+        quickAdminBtn.disabled = false;
+        quickAdminBtn.innerHTML = '<i class="fa-solid fa-bolt" style="color: var(--gold);"></i> Quick Admin Access';
+      }
+    });
+
+    toggleBtn.addEventListener('click', () => {
+      isRegister = !isRegister;
+      btn.textContent = isRegister ? 'Create Account' : 'Sign In';
+      toggleBtn.textContent = isRegister ? 'Already have an account? Sign In' : 'Need an account? Register';
+      regFields.classList.toggle('show', isRegister);
+      errorEl.classList.remove('show');
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      errorEl.classList.remove('show');
+      btn.disabled = true;
+      btn.textContent = isRegister ? 'Creating...' : 'Signing in...';
+
+      const email = document.getElementById('loginEmail').value;
+      const password = document.getElementById('loginPassword').value;
+
+      try {
+        let result;
+        if (isRegister) {
+          result = await sb.auth.signUp({ email, password });
+        } else {
+          result = await sb.auth.signInWithPassword({ email, password });
+        }
+
+        if (result.error) throw result.error;
+
+        if (isRegister && !result.data.session) {
+          errorEl.textContent = 'Check your email to confirm your account.';
+          errorEl.style.color = 'var(--success)';
+          errorEl.classList.add('show');
+        } else {
+          window.location.href = 'admin.html';
+        }
+      } catch (err) {
+        errorEl.textContent = err.message || 'Authentication failed.';
+        errorEl.style.color = 'var(--danger)';
+        errorEl.classList.add('show');
+      } finally {
+        btn.disabled = false;
+        btn.textContent = isRegister ? 'Create Account' : 'Sign In';
+      }
+    });
+
+    // Scroll reveal
+    const els = document.querySelectorAll('.reveal-scale');
+    setTimeout(() => els.forEach(el => el.classList.add('visible')), 100);
+  </script>
+</body>
+</html>

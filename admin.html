@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lumina | Admin Dashboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="admin-body">
+  <div class="bg-shape shape-1"></div>
+  <div class="bg-shape shape-2"></div>
+  <div class="bg-shape shape-3"></div>
+
+  <nav class="navbar scrolled">
+    <a href="index.html" class="nav-logo">Lumina<span>.</span> Admin</a>
+    <ul class="nav-links">
+      <li><a href="index.html">View Website</a></li>
+    </ul>
+    <button class="btn-logout" id="logoutBtn">Logout</button>
+  </nav>
+
+  <div class="admin-page reveal-scale">
+    <div class="admin-header">
+      <h1 class="admin-title">Appointments Master List</h1>
+      <button class="nav-cta" id="refreshBtn"><i class="fa-solid fa-rotate-right"></i> Refresh</button>
+    </div>
+
+    <div class="table-container">
+      <table id="appointmentsTable">
+        <thead>
+          <tr>
+            <th>Date & Time</th>
+            <th>Patient Details</th>
+            <th>Service</th>
+            <th>Message</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody">
+          <!-- Data populated by JS -->
+        </tbody>
+      </table>
+      <div class="loading-state" id="loadingState">
+        <i class="fa-solid fa-circle-notch fa-spin"></i> Loading appointments...
+      </div>
+      <div class="empty-state" id="emptyState">
+        <i class="fa-solid fa-calendar-xmark" style="font-size: 2rem; margin-bottom: 12px;"></i><br>
+        No appointments found.
+      </div>
+    </div>
+  </div>
+
+  <div class="error-toast" id="errorToast"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
+  <script>
+    const sb = getSupabase();
+
+    const tbody = document.getElementById('tableBody');
+    const loading = document.getElementById('loadingState');
+    const empty = document.getElementById('emptyState');
+    const errorToast = document.getElementById('errorToast');
+
+    function showError(msg) {
+      errorToast.textContent = msg;
+      errorToast.classList.add('show');
+      setTimeout(() => errorToast.classList.remove('show'), 4000);
+    }
+
+    // Auth check
+    async function checkAuth() {
+      const { data: { session } } = await sb.auth.getSession();
+      if (!session) {
+        window.location.href = 'login.html';
+        return false;
+      }
+      return true;
+    }
+
+    // Escape HTML to prevent XSS
+    function escapeHTML(str) {
+      if (!str) return '';
+      return String(str).replace(/[&<>'"]/g, tag => ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        "'": '&#39;',
+        '"': '&quot;'
+      }[tag] || tag));
+    }
+
+    // Fetch data
+    async function fetchAppointments() {
+      if (!await checkAuth()) return;
+      
+      tbody.innerHTML = '';
+      loading.style.display = 'block';
+      empty.style.display = 'none';
+
+      try {
+        const { data, error } = await sb
+          .from('appointments')
+          .select('*')
+          .order('appointment_date', { ascending: true })
+          .order('appointment_time', { ascending: true });
+
+        if (error) throw error;
+
+        loading.style.display = 'none';
+
+        if (!data || data.length === 0) {
+          empty.style.display = 'block';
+          return;
+        }
+
+        data.forEach(appt => {
+          const tr = document.createElement('tr');
+          const date = new Date(appt.appointment_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+          const time = appt.appointment_time.substring(0,5); // Convert HH:MM:SS to HH:MM
+          
+          const safeName = escapeHTML(appt.patient_name);
+          const safePhone = escapeHTML(appt.patient_phone);
+          const safeEmail = escapeHTML(appt.patient_email);
+          const safeService = escapeHTML(appt.service);
+          const safeMessage = escapeHTML(appt.message || '');
+          const safeStatus = escapeHTML(appt.status);
+          const safeId = escapeHTML(appt.id);
+
+          tr.innerHTML = `
+            <td><strong>${date}</strong><br><span class="text-muted-alt">${time}</span></td>
+            <td><strong>${safeName}</strong><br><span class="text-muted-alt">${safePhone} | ${safeEmail}</span></td>
+            <td>${safeService}</td>
+            <td style="max-width:200px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="${safeMessage}">${safeMessage || '-'}</td>
+            <td><span class="status-badge status-${safeStatus}" id="badge-${safeId}">${safeStatus}</span></td>
+            <td>
+              <select class="action-select" onchange="updateStatus('${safeId}', this.value)">
+                <option value="" disabled selected>Update...</option>
+                <option value="pending" ${safeStatus === 'pending' ? 'disabled' : ''}>Pending</option>
+                <option value="confirmed" ${safeStatus === 'confirmed' ? 'disabled' : ''}>Confirm</option>
+                <option value="completed" ${safeStatus === 'completed' ? 'disabled' : ''}>Complete</option>
+                <option value="cancelled" ${safeStatus === 'cancelled' ? 'disabled' : ''}>Cancel</option>
+              </select>
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
+
+      } catch (err) {
+        loading.style.display = 'none';
+        showError(err.message || 'Failed to load appointments');
+      }
+    }
+
+    // Update status
+    window.updateStatus = async (id, newStatus) => {
+      if (!newStatus) return;
+      try {
+        const { error } = await sb
+          .from('appointments')
+          .update({ status: newStatus })
+          .eq('id', id);
+
+        if (error) throw error;
+        
+        // Optimistic UI update
+        const badge = document.getElementById(\`badge-\${id}\`);
+        if (badge) {
+          badge.className = \`status-badge status-\${newStatus}\`;
+          badge.textContent = newStatus;
+        }
+        
+        // trigger WhatsApp notification hook if needed here (Phase 5)
+        if (newStatus === 'confirmed') {
+          console.log(\`Trigger WhatsApp confirmation to patient for appointment \${id}\`);
+        }
+      } catch (err) {
+        showError('Failed to update status');
+      }
+      fetchAppointments(); // Refresh to reset dropdowns
+    };
+
+    // Logout
+    document.getElementById('logoutBtn').addEventListener('click', async () => {
+      await sb.auth.signOut();
+      window.location.href = 'login.html';
+    });
+
+    document.getElementById('refreshBtn').addEventListener('click', fetchAppointments);
+
+    // Initial load
+    document.addEventListener('DOMContentLoaded', () => {
+      fetchAppointments();
+      setTimeout(() => document.querySelector('.admin-page').classList.add('visible'), 100);
+    });
+  </script>
+</body>
+</html>
